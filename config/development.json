@@ -1,0 +1,13 @@
+{
+  "hivemind": {
+   "url":"https://bucketing.hivemind.dev-godaddy.com/v1/getCohorts"
+  },
+  "JWT_HOST":"sso.dev-godaddy.com",
+  "TLS_CERT_PATH":"../../cert/eCommAdmin.dev.intranet.gdg.crt",
+  "TLS_CERT_KEY_PATH":"../../cert/eCommAdmin.dev.intranet.gdg.key",
+  "athena": {
+    "workgroup": "primary",
+    "athenaSearchResultS3Bucket": "gd-ecommplatform-dev-private-test-my-s3-us-west-2",
+    "experimentResultOutputBucket": "vbp-pricing-experiment-bucket"
+  }
+}
