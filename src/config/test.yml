@@ -1,0 +1,6 @@
+---
+hivemind:
+  url: https://bucketing.hivemind.test-godaddy.com/v1/getCohorts
+JWT_HOST: sso.test-godaddy.com
+TLS_CERT_PATH: "../../cert/eCommAdmin.test.intranet.gdg.crt"
+TLS_CERT_KEY_PATH: "../../cert/eCommAdmin.test.intranet.gdg.key"

@@ -13,9 +13,13 @@ const logger = new Logger('HivemindService');
 class HivemindService {
     constructor() {
         return (async () => {
-            httpClient = await new HttpClient();
+            await this.initialize();
             return this;
         })();
+    }
+
+    async initialize() {
+        httpClient = await new HttpClient();
     }
 
     async bucketize(experiment, record){

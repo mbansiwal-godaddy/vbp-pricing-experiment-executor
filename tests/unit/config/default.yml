@@ -1,0 +1,25 @@
+---
+experiments:
+    - id: finishedExperiment1
+      queryName: DomainOwnershipProtectionQuery
+      startDate: '2023-12-15'
+      endDate: '2024-01-21'
+      allocationDate: '2023-12-19'
+
+    - id: failedExperiment1
+      queryName: SELECT_EXPERIMENT_EXPIRY1
+      startDate: '2023-01-10'
+      endDate: '2023-01-11'
+      allocationDate: '2023-12-20'
+
+    - id: inProgressExperiment1
+      queryName: SELECT_EXPERIMENT_EXPIRY2
+      startDate: '2024-01-20'
+      endDate: '2024-01-21'
+      allocationDate: '2023-12-21'
+
+    - id: newExperiment1
+      queryName: SELECT_EXPERIMENT_EXPIRY3
+      startDate: '2024-03-16'
+      endDate: '2024-04-23'
+      allocationDate: '2023-12-23'

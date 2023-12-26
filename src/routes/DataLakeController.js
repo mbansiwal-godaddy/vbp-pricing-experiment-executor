@@ -1,8 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const router = express.Router();
 
-const AthenaService = require('../src/components/AthenaService');
+const AthenaService = require('../components/AthenaService');
 const athenaService = new AthenaService();
 
 /**

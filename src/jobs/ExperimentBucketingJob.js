@@ -6,10 +6,11 @@ const ExperimentRepository = require('../repository/ExperimentRepository');
 const AthenaIterator = require('../components/AthenaIterator');
 const S3StreamingService = require("../components/S3StreamingService");
 const HivemindService = require("../components/HivemindService");
+const ExperimentConfigService = require('../components/ExperimentConfigService');
 const Logger = require("../log/Logger");
 const LogEvent = require("../log/LogEvent");
-const {log} = require("debug");
 
+const experimentConfigService = new ExperimentConfigService();
 const experimentRepository = new ExperimentRepository();
 const logger = new Logger('ExperimentBucketingJob');
 
@@ -32,11 +33,10 @@ class ExperimentBucketingJob {
 
       logger.info(logEvent);
       const bucketingProcesses = [];
-      const experimentConfigs = config.get('experiments');
-      for (let i = 0; i < experimentConfigs.length; i++) {
-        const experimentConfig = experimentConfigs[i];
-        let experiment = await experimentRepository.getExperiment(experimentConfig.id);
-        if(experiment && experiment.status == ExperimentExecutionStatus.DATA_SEARCH_FINISHED){
+      const experiments = await experimentConfigService.getExperiments();
+      for (let i = 0; i < experiments.length; i++) {
+        const experiment = experiments[i];
+        if(experiment.status == ExperimentExecutionStatus.DATA_SEARCH_FINISHED){
           bucketingProcesses.push(this.#fetchRecordsAndExecuteExperiment(experiment));
         }
       }

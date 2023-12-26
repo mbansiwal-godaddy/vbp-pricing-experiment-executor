@@ -1,0 +1,20 @@
+---
+experiments:
+  - id: dev_env_current_gen_dop_pi_2023_ultim
+    queryName: DomainOwnershipProtectionQuery
+    startDate: '2023-12-15'
+    endDate: '2024-01-21'
+    allocationDate: '2023-12-19'
+
+  - id: abn_vbp_poc_test_exp_2
+    queryName: SELECT_EXPERIMENT_EXPIRY
+    startDate: '2023-12-20'
+    endDate: '2023-12-21'
+    allocationDate: '2023-12-19'
+
+  - id: abn_vbp_poc_test_exp_1
+    queryName: SELECT_EXPERIMENT_EXPIRY
+    startDate: '2024-01-20'
+    endDate: '2024-01-21'
+    allocationDate: '2023-12-19'
+    label: abn_vbp_poc_test_exp

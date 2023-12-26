@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 process.env.AWS_REGION = "us-west-2";
-
+process.env.NODE_CONFIG_DIR='src/config';
 /**
  * Module dependencies.
  */
-var app = require('../app');
+var app = require('../src/app');
 var debug = require('debug')('vbp-pricing-experiment-executor:server');
 var http = require('http');
 const cron = require("node-cron");
@@ -39,9 +39,12 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-cron.schedule("1 * * * * *", async function () {
-  // await experimentExecutor.execute();
-  await Promise.all([dataGatheringJob.execute(), experimentBucketingJob.execute()]);
+cron.schedule("0 * * * *", async function () {
+  await dataGatheringJob.execute();
+});
+
+cron.schedule("0 * * * *", async function () {
+  await experimentBucketingJob.execute();
 });
 
 /**

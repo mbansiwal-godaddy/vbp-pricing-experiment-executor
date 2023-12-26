@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var dataLakeController = require('./routes/DataLakeController');
+const indexRouter = require('./routes');
+const usersRouter = require('./routes/users');
+const dataLakeController = require('./routes/DataLakeController');
 
 const options = {
   definition: {
@@ -19,7 +19,7 @@ const options = {
       version: '1.0.0',
     },
   },
-  apis: ['./routes/*.js'], // files containing annotations as above
+  apis: ['src/routes/*.js'], // files containing annotations as above
 };
 const openapiSpecification = swaggerJsdoc(options);
 

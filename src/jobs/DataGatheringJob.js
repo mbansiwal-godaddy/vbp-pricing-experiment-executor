@@ -4,11 +4,13 @@ const ExperimentExecutionStatus = require('../common/ExperimentExecutionStatus')
 const config = require('config');
 
 const AthenaService = require('../components/AthenaService');
+const ExperimentConfigService = require('../components/ExperimentConfigService');
 const ExperimentRepository = require('../repository/ExperimentRepository');
 const Logger = require("../log/Logger");
 const LogEvent = require("../log/LogEvent");
 
 const logger = new Logger('DataGatheringJob');
+const experimentConfigService = new ExperimentConfigService();
 const experimentRepository = new ExperimentRepository();
 const athenaService = new AthenaService();
 
@@ -27,13 +29,10 @@ class DataGatheringJob {
     try{
       logger.info(logEvent);
       const dataSearchStatusProcesses = [];
-      const experimentConfigs = config.get('experiments');
-      for (let i = 0; i < experimentConfigs.length; i++) {
-        const experimentConfig = experimentConfigs[i];
-        let experiment = await experimentRepository.getExperiment(experimentConfig.id);
-        if(!experiment || experiment.dataGatheringStatus == DataLakeSearchStatus.FAILED){
-          experiment = {};
-          Object.assign(experiment, experimentConfig);
+      const experiments = await experimentConfigService.getExperiments();
+      for (let i = 0; i < experiments.length; i++) {
+        const experiment = experiments[i];
+        if(experiment.status == ExperimentExecutionStatus.NEW_EXPERIMENT || experiment.dataGatheringStatus == DataLakeSearchStatus.FAILED){
           await this.#startDataSearch(experiment);
         }
         if(experiment.dataGatheringStatus == DataLakeSearchStatus.RUNNING){
@@ -62,7 +61,7 @@ class DataGatheringJob {
   async #waitForDataSearchToFinish(experiment){
     const executionStatus = await athenaService.waitForJobCompletion(experiment.dataGatheringExecutionId);
     experiment.dataGatheringStatus = executionStatus.status;
-    experiment.status = ExperimentExecutionStatus.DATA_SEARCH_FINISHED;
+    experiment.status = executionStatus.status == DataLakeSearchStatus.FINISHED?ExperimentExecutionStatus.DATA_SEARCH_FINISHED: ExperimentExecutionStatus.DATA_SEARCH_FAILED;
     await experimentRepository.saveExperiment(experiment);
   }
 }
