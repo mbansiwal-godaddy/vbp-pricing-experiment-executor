@@ -21,7 +21,6 @@ const dataGatheringJob = new DataGatheringJob();
 /**
  * Get port from environment and store in Express.
  */
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -40,11 +39,24 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 cron.schedule("0 * * * *", async function () {
-  await dataGatheringJob.execute();
+
+  if(dataGatheringJob.isRunning())
+  {
+    console.info("dataGatheringJob is already running");
+  }
+  else {
+    await dataGatheringJob.execute();
+  }
 });
 
 cron.schedule("0 * * * *", async function () {
-  await experimentBucketingJob.execute();
+  if(experimentBucketingJob.isRunning())
+  {
+    console.info("experimentBucketingJob is already running");
+  }
+  else {
+    await experimentBucketingJob.execute();
+  }
 });
 
 /**

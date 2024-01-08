@@ -1,4 +1,7 @@
 ---
+global-query:
+  name: FindResourcesWithProductLineAndSubline
+
 experiments:
     - id: finishedExperiment1
       queryName: DomainOwnershipProtectionQuery

@@ -21,11 +21,6 @@ class ExperimentBucketingJob {
   }
 
   async execute() {
-    if(running)
-    {
-      logger.info(new LogEvent({event: "Job is already running"}));
-      return;
-    }
     running = true;
     const logEvent = new LogEvent({event: "Started"});
     try{
@@ -81,6 +76,10 @@ class ExperimentBucketingJob {
       s3StreamingService.add(bucketedRecords);
     }
     return experimentResults.failedRecords;
+  }
+
+  isRunning(){
+    return running;
   }
 }
 

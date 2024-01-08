@@ -1,8 +1,6 @@
 const DataLakeSearchStatus = require('../common/DataLakeSearchStatus');
 const ExperimentExecutionStatus = require('../common/ExperimentExecutionStatus');
 
-const config = require('config');
-
 const AthenaService = require('../components/AthenaService');
 const ExperimentConfigService = require('../components/ExperimentConfigService');
 const ExperimentRepository = require('../repository/ExperimentRepository');
@@ -63,6 +61,10 @@ class DataGatheringJob {
     experiment.dataGatheringStatus = executionStatus.status;
     experiment.status = executionStatus.status == DataLakeSearchStatus.FINISHED?ExperimentExecutionStatus.DATA_SEARCH_FINISHED: ExperimentExecutionStatus.DATA_SEARCH_FAILED;
     await experimentRepository.saveExperiment(experiment);
+  }
+
+  isRunning(){
+    return running;
   }
 }
 
