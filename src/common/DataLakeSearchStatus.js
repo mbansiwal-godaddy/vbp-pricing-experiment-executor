@@ -1,6 +1,6 @@
 class DataLakeSearchStatus{
     static RUNNING = 'RUNNING';
-    static FINISHED = 'FINISHED';
+    static FINISHED = 'SUCCEEDED';
     static FAILED = 'FAILED';
 }
 module.exports = DataLakeSearchStatus;

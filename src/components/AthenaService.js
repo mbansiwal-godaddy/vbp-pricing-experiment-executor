@@ -1,4 +1,4 @@
-const QUERY_FORMAT = "EXECUTE QUERY_NAME USING 'START_DATE', 'END_DATE'";
+const QUERY_FORMAT = "EXECUTE QUERY_NAME ";
 
 const config = require('config');
 
@@ -16,8 +16,9 @@ class AthenaService {
   }
 
   async executeQuery(dataGatherRequest) {
-    const queryString = QUERY_FORMAT.replace("START_DATE", dataGatherRequest.startDate).replace("END_DATE", dataGatherRequest.endDate).replace("QUERY_NAME", dataGatherRequest.queryName);
-    const logEvent = new LogEvent({queryString: queryString, method:"executeQuery"});
+    let queryString = QUERY_FORMAT.replace("QUERY_NAME", dataGatherRequest.query.name);
+    const queryParams = dataGatherRequest.query.params;
+    const logEvent = new LogEvent({queryString: queryString, method:"executeQuery", dataGatherRequest: dataGatherRequest});
     const params = {
       QueryString: queryString,
       ResultConfiguration: {
@@ -28,7 +29,7 @@ class AthenaService {
       },
       /* Parameters that will be used in the query */
       WorkGroup: config.get("athena.workgroup"), // Specify the Athena workgroup
-      // ExecutionParameters: queryParams
+      ExecutionParameters: queryParams
     };
 
     try {

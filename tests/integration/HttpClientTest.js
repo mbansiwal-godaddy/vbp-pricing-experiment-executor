@@ -25,7 +25,7 @@ describe('Price Lock Intake Test', function () {
                 "customerId": "f0a6e68d-366f-4d43-9712-a86dc01ed2bc"
             },
             "visitGuid": "f0a6e68d-366f-4d43-9712-a86dc01ed2bc",
-            "attributes": { "market": "en-US", "product_line": "DotComDomains", "renewal_type": "auto", "sub_line":"EE" },
+            "attributes": { "market": "en-US", "product_line": "`DotComDomains  `", "renewal_type": "auto", "sub_line":"EE" },
             "experiments": [
                 "abn_vbp_poc_test_exp_2"
             ]
